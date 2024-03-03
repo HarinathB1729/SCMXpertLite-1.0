@@ -9,6 +9,7 @@ from datetime import date
 load_dotenv()
 
 PORT = int(os.getenv('PORT'))
+# print(PORT)
 SERVER = socket.gethostbyname(socket.gethostname())
 print(SERVER)
 

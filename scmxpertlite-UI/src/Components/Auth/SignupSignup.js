@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -21,6 +21,7 @@ function Copyright(props) {
         className="LinkNone"
         target="_blank"
         href="https://www.exafluence.com/"
+        rel="noreferrer"
       >
         Exafluence
       </a>{" "}
@@ -38,10 +39,11 @@ export default function SignupSignup() {
     role: "user",
     email: false,
   };
-  const [signupData, setSignupData] = React.useState(signup_init_values);
-  const [cnfPwd, setCnfPwd] = React.useState("");
-  const [error, setError] = React.useState(false);
-  const [errMsg, setErrMsg] = React.useState(false);
+  const [signupData, setSignupData] = useState(signup_init_values);
+  const [cnfPwd, setCnfPwd] = useState("");
+  const [error, setError] = useState(false);
+  const [errMsg, setErrMsg] = useState(false);
+  const [pwdErr, setPwdErr] = useState(false);
 
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -66,9 +68,18 @@ export default function SignupSignup() {
     }
   };
 
+  function validatePassword(password) {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{7,20}$/;
+    return regex.test(password);
+  }
+
   const dataHandler = (e) => {
     const sanitized_name = DOMPurify.sanitize(e.target.name);
     const sanitized_value = DOMPurify.sanitize(e.target.value);
+
+    if (validatePassword(signupData?.password)) setPwdErr(false);
+    else setPwdErr(true);
 
     setSignupData((prev) => ({
       ...prev,
@@ -122,21 +133,28 @@ export default function SignupSignup() {
               type="password"
               onChange={dataHandler}
               placeholder="Enter New Password"
+              error={pwdErr}
             />
-
+            {pwdErr && (
+              <Typography sx={{ color: "red", fontSize: "0.8em" }}>
+                Password : 8-20 characters with [a-z], [A-Z], [0-9],
+                [!@#$%^&*()_+{};':"|,./?].
+              </Typography>
+            )}
             <TextField
               sx={{ marginTop: "20px" }}
               fullWidth
               required={true}
               name="cnfpwd"
+              type="password"
               label="confirm password"
               onChange={(e) => {
                 setCnfPwd(e.target.value);
               }}
               placeholder="Confirm New Password"
-              error={cnfPwd != signupData.password}
+              error={cnfPwd !== signupData.password}
             />
-            {cnfPwd != signupData.password && (
+            {cnfPwd !== signupData.password && (
               <Typography
                 sx={{ float: "left", color: "red" }}
                 fontSize={13}
@@ -174,8 +192,7 @@ export default function SignupSignup() {
               disabled={
                 !signupData.name ||
                 !signupData.email ||
-                signupData.password != cnfPwd ||
-                !signupData.password
+                signupData.password !== cnfPwd
               }
             >
               SIGN UP

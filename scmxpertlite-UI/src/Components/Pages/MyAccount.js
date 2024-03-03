@@ -38,7 +38,7 @@ function MyAccount() {
 
     // console.log("form submitted :", changeName);
     if (isAuthenticated["name"] !== changeName.name) {
-      try{
+      try {
         await api
           .post("/changename", changeName, {
             headers: {
@@ -53,9 +53,8 @@ function MyAccount() {
           .catch((err) => {
             console.log("error", err);
           });
-
-      }catch(err){
-        console.log("Catch Error :",err)
+      } catch (err) {
+        console.log("Catch Error :", err);
       }
     } else setErr(true);
   };
@@ -78,7 +77,7 @@ function MyAccount() {
               fullWidth
               label="Email"
               name="email"
-              type="email"             
+              type="email"
               value={changeName?.email}
               onChange={dataHandler}
               InputProps={{
@@ -91,7 +90,7 @@ function MyAccount() {
               fullWidth
               sx={{ marginTop: "20px", minWidth: "500px" }}
               label="Name"
-              name="name"            
+              name="name"
               value={changeName?.name}
               onChange={dataHandler}
               autoComplete="off"

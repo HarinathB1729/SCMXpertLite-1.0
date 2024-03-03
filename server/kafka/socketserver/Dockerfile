@@ -2,13 +2,13 @@
 FROM python:3.9-slim
 
 # Set the working directory in the container
-WORKDIR /consumer
+WORKDIR /socketserver
 
-# Copy the current directory contents into the container at /consumer
-COPY . /consumer
+# Copy the current directory contents into the container at /socketserver
+COPY . /socketserver
 
 # Install any needed dependencies specified in requirements.txt (if any)
 # RUN pip install --no-cache-dir -r requirements.txt
 
 # Run python script when the container launches
-CMD ["python", "Consumer.py"]
+CMD ["python", "SocketServer.py"]

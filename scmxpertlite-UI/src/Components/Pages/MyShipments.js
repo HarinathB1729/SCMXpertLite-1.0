@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import api from "../api";
-import { Typography } from "@mui/material";
 import { useAuth } from "../Auth/AuthProvider";
+import api from "../api";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,11 +9,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TablePagination from "@mui/material/TablePagination";
+import { Typography } from "@mui/material";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "blue",
     color: theme.palette.common.white,
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -23,19 +28,22 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
-    backgroundColor: "theme.palette.action.hover",
+    backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
+
 
 function MyShipments() {
   const { isAuthenticated } = useAuth();
   const [myShipments, setMyShipments] = useState([]);
   let query;
   const token = isAuthenticated["token"];
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
 
   useEffect(() => {
     query =
@@ -60,12 +68,22 @@ function MyShipments() {
   }, []);
   // console.log("myshipments :", myShipments);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
   return (
-    <div>
+    <Paper>
       <Typography variant="h6" component="h6">
         My Shipments
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table
           sx={{ marginTop: "30px", minWidth: 700 }}
           aria-label="customized table"
@@ -85,13 +103,14 @@ function MyShipments() {
               <StyledTableCell align="left">
                 Shipment Description
               </StyledTableCell>
-
               <StyledTableCell align="left">S.No.of goods</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {myShipments.length > 0 &&
-              myShipments?.map((row) => (
+          {(rowsPerPage > 0
+              ? myShipments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              : myShipments
+            ).map((row) => (
                 <StyledTableRow key={row?.shipmentno}>
                   <StyledTableCell component="th" scope="row">
                     {row?.shipmentno}
@@ -135,7 +154,17 @@ function MyShipments() {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+        component="div"
+        count={myShipments.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
+    
   );
 }
 

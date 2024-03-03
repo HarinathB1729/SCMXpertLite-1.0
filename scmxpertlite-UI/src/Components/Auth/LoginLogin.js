@@ -190,11 +190,10 @@ export default function LoginLogin() {
             style={{ display: "flex", width: "100%", justifyContent: "center" }}
           >
             <TextField
-              // sx={{ marginTop: "10px", marginBottom: "20px" }}
               fullWidth
               required={true}
               name="captcha"
-              label="captcha"
+              label="Enter Captcha"
               type="text"
               onChange={captchaDataHandler}
               placeholder="Enter captcha Value"
@@ -203,27 +202,21 @@ export default function LoginLogin() {
 
             <ReplayIcon
               sx={{
-                // border: "1px solid blue",
                 display: "flex",
                 alignItems: "center",
                 margin: "20px",
               }}
               onClick={captchaGenerator}
             />
-
-            <div
-              style={{
-                margin: "20px 40px",
-                // border: "1px solid blue",
-                width: "30%",
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
+            <TextField
+              sx={{ fontSize: "30em" }}
+              fullWidth
+              label="Captcha"
+              value={captchaVal}
+              InputProps={{
+                readOnly: true,
               }}
-            >
-              {" "}
-              {captchaVal}
-            </div>
+            />
           </div>
           <Button
             type="submit"

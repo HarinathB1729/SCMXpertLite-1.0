@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import api from "../api";
+import DOMPurify from "dompurify";
+
 
 function Copyright(props) {
   return (
@@ -26,20 +28,35 @@ function Copyright(props) {
 }
 
 export default function PwdReset() {
-  const [pwdresetData, setPwdresetData] = React.useState({});
-  const [error, setError] = React.useState(false);
-  const [errMsg, setErrMsg] = React.useState(false);
-  const [cnfPwd, setCnfPwd] = React.useState("");
+  const [pwdresetData, setPwdresetData] = useState({});
+  const [error, setError] = useState(false);
+  const [errMsg, setErrMsg] = useState(false);
+  const [cnfPwd, setCnfPwd] = useState("");
+  const [pwdErr, setPwdErr] = useState(false);
 
   const navigate = useNavigate();
+
+  function validatePassword(password) {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{7,20}$/;
+    return regex.test(password);
+  }
 
   const pwdResetDataHandler = (e) => {
     e.preventDefault();
     setError(false);
+
+    if (validatePassword(pwdresetData?.password)) setPwdErr(false);
+    else setPwdErr(true);
+
+    const sanitized_name = DOMPurify.sanitize(e.target.name);
+    const sanitized_value = DOMPurify.sanitize(e.target.value);
+
     setPwdresetData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [sanitized_name]: sanitized_value,
     }));
+    
   };
 
   const formDataHandler = async (e) => {
@@ -114,6 +131,13 @@ export default function PwdReset() {
             autoComplete="off"
             error={error}
           />
+          {pwdErr && (
+            <Typography sx={{ color: "red", fontSize: "0.8em" }}>
+              Password : 8-20 characters with [a-z], [A-Z], [0-9], [!@#$%^&*()_+
+              {};':"|,./?].
+            </Typography>
+          )}
+
           <TextField
             sx={{ marginTop: "20px", width: "500px" }}
             required={true}
@@ -125,7 +149,7 @@ export default function PwdReset() {
             }}
             placeholder="Confirm New Password"
             autoComplete="off"
-            error={error}
+            error={cnfPwd !== pwdresetData.password}
           />
           {cnfPwd !== pwdresetData.password && (
             <Typography

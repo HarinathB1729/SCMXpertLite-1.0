@@ -1,0 +1,70 @@
+version: '3'
+ 
+#The services section is to define the individual containers (services) that will make up your application.
+services:
+
+# scmxpertlite application service
+  scmserver:
+    image: scmserver
+    ports:
+      - "8000:8000"
+
+ # scmxpertlite application service
+  scmxpertlite:
+    image: scmxpertlite-ui
+    ports:
+      - "3000:3000"
+       #networks that will be used to connect your services. Networks allow containers to communicate with each other using their service names as hostnames
+ 
+  # Zookeeper service for Kafka
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'  
+    ports:
+      - "2181:2181"
+    depends_on:
+      - scmxpertlite
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+ 
+  # Kafka service
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_HEAP_OPTS=-Xmx1G  
+ 
+  # Server service
+  socketserver:
+    image: socketserver:latest
+    ports:
+      - "12121:12121"
+    depends_on:
+      - kafka
+  # Producer service
+  producer:
+    image: producer:latest
+    depends_on:
+      - socketserver
+    environment:
+      - BOOTSTRAP_SERVERS = kafka:9092    
+      - PORT = 5050
+      - TOPIC_NAME = 'SERVERDATA'
+      - HOST=''
+   
+   # Consumer service
+  consumer:
+    image: consumer:latest
+    depends_on:
+      - producer
+    environment:
+      - BOOTSTRAP_SERVERS = kafka:9092
+      - PORT = 5050
+      - TOPIC_NAME = 'SERVERDATA'
+      - MONGO_URL = "mongodb+srv://harinathb1729:yhfiEL5hwEsZpoHP@scmxpertlite.o1m8qrz.mongodb.net/"
+      - DATABASE= 'scmxpertlite'
+      - COLLECTION = 'devices'

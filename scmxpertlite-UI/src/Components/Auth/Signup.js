@@ -16,17 +16,17 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Signup() {
   return (
-    <Grid container>
+    <Grid container sx={{background: "radial-gradient(circle,rgba(148,233,232,1)  0%, rgba(174,183,238,1) 100%)"}}>
       <Grid
         item
         sx={{
-          display: "flex",
-          // backgroundColor: "green",
-          // border:'1px solid red',
+          display: "flex",          
+          borderRight:'1px solid',
           width: "50%",
           height: "100vh",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <SignupSignup />
@@ -34,9 +34,7 @@ function Signup() {
       <Grid
         item
         sx={{
-          display: "flex",
-          backgroundColor: "aqua",
-          // border:'1px solid red',
+          display: "flex",         
           width: "50%",
           height: "100vh",
           flexDirection: "column",
