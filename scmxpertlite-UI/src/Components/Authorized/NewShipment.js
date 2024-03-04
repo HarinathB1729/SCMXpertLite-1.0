@@ -48,6 +48,7 @@ export default function NewShipment() {
     shipmentdescr: "",
   };
 
+
   useEffect(() => {
     routesGen();
     const fetchData = async () => {

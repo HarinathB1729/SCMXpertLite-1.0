@@ -8,7 +8,7 @@ WORKDIR /consumer
 COPY . /consumer
 
 # Install any needed dependencies specified in requirements.txt (if any)
-# RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install python-dotenv confluent-kafka pymongo
 
 # Run python script when the container launches
 CMD ["python", "Consumer.py"]

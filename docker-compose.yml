@@ -50,11 +50,12 @@ services:
     image: producer:latest
     depends_on:
       - socketserver
+      - kafka
     environment:
-      - BOOTSTRAP_SERVERS = kafka:9092    
-      - PORT = 5050
-      - TOPIC_NAME = 'SERVERDATA'
-      - HOST=''
+      - BOOTSTRAP_SERVERS=kafka:9092    
+      - PORT=12121
+      - TOPIC_NAME=ProducerData
+      - HOST=socketserver
    
    # Consumer service
   consumer:
@@ -62,9 +63,8 @@ services:
     depends_on:
       - producer
     environment:
-      - BOOTSTRAP_SERVERS = kafka:9092
-      - PORT = 5050
-      - TOPIC_NAME = 'SERVERDATA'
-      - MONGO_URL = "mongodb+srv://harinathb1729:yhfiEL5hwEsZpoHP@scmxpertlite.o1m8qrz.mongodb.net/"
-      - DATABASE= 'scmxpertlite'
-      - COLLECTION = 'devices'
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - TOPIC_NAME=ProducerData
+      - MONGO_URL=mongodb+srv://harinathb1729:yhfiEL5hwEsZpoHP@scmxpertlite.o1m8qrz.mongodb.net/
+      - DATABASE=scmxpertlite
+      - COLLECTION=devices
