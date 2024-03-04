@@ -63,7 +63,7 @@
 .dashboard {
   display: flex;
   width: 100%;
-  height: 100vh ;
+  height: 91vh ;
 }
 .dashboard-item {
   /* border: 1px solid red; */
@@ -75,10 +75,11 @@
   align-items: center;
 }
 .dashboard div:first-child {
-  background-color: aqua;
+  /* background-color: aqua; */
+  background: linear-gradient(0deg, rebeccapurple 0%,  aqua 100% );
 }
 .dashboard div:last-child {
-  background-color: rebeccapurple;
+  background: linear-gradient(0deg, aqua 0%,   rebeccapurple 100% );
 }
 
 .dashboard-item-button {

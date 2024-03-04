@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import React, { useState } from "react";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 import api from "../api";
 import { FormControl } from "@mui/material";
 import DOMPurify from "dompurify";

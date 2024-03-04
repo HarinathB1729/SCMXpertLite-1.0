@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import DeviceDataStream from "./DeviceDataStream";
 import api from "../api";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

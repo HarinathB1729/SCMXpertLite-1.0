@@ -5,7 +5,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { NavLink } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 
 function SecondListItems() {
   const { setIsAuthenticated } = useAuth();

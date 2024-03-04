@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { Typography } from "@mui/material";
 import DOMPurify from "dompurify";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Item = styled("div")(({ theme }) => ({

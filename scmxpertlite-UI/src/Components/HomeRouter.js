@@ -13,9 +13,9 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import MainListItems from "./Pages/MainListItems";
-import SecondListItems from "./Pages/SecondListItems";
-import { useAuth } from "./Auth/AuthProvider";
+import MainListItems from "./Authorized/MainListItems";
+import SecondListItems from "./Authorized/SecondListItems";
+import { useAuth } from "../Components/Authorized/AuthProvider";
 
 const drawerWidth = 300;
 

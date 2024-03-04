@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import api from "../api";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 import { FormControl } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 

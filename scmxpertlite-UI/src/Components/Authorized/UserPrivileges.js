@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 import api from "../api";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";

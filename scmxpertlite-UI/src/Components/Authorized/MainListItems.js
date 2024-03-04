@@ -9,7 +9,7 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AdfScannerIcon from "@mui/icons-material/AdfScanner";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "./AuthProvider";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 

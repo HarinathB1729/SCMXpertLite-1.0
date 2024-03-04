@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import api from "../api";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../Authorized/AuthProvider";
 import ReplayIcon from "@mui/icons-material/Replay";
 
 function Copyright(props) {
@@ -208,15 +208,15 @@ export default function LoginLogin() {
               }}
               onClick={captchaGenerator}
             />
-            <TextField
-              sx={{ fontSize: "30em" }}
-              fullWidth
+           <div>
+            <TextField              
+              fullWidth             
               label="Captcha"
-              value={captchaVal}
+              value={captchaVal}              
               InputProps={{
-                readOnly: true,
+                readOnly: true                                
               }}
-            />
+            /></div>
           </div>
           <Button
             type="submit"
