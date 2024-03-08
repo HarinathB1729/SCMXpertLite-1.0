@@ -140,7 +140,7 @@ export default function HomeRouter() {
                 <div></div>
                 <NavLink to="/dashboard">
                   <img
-                    style={{ width: "260px", height: "75px" }}
+                    style={{ width: "250px", height: "75px" }}
                     src={ExfImgSrc}
                     alt="Exf Icon"
                   />
