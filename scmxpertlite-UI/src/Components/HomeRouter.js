@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -11,7 +11,9 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
+import ExfIconSrc from "./Authorized/Exf_icon.ico";
+import ExfImgSrc from "./Authorized/exafluence.avif";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MainListItems from "./Authorized/MainListItems";
 import SecondListItems from "./Authorized/SecondListItems";
@@ -68,7 +70,7 @@ const defaultTheme = createTheme();
 
 export default function HomeRouter() {
   const [open, setOpen] = React.useState(true);
-  const {isAuthenticated} = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -96,7 +98,13 @@ export default function HomeRouter() {
                 ...(open && { display: "none" }),
               }}
             >
-              <MenuIcon />
+              <img
+                style={{ width: "32px", height: "32px" }}
+                src={ExfIconSrc}
+                alt="Exf icon"
+              />
+
+              {/* <MenuIcon /> */}
             </IconButton>
             <Typography
               component="h1"
@@ -107,7 +115,7 @@ export default function HomeRouter() {
             >
               SCMXpertLite
             </Typography>
-            Hello {isAuthenticated['name']} !
+            Hello {isAuthenticated["name"]} !
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -116,7 +124,7 @@ export default function HomeRouter() {
               display: "flex",
               height: "100vh",
               flexDirection: "column",
-              justifyContent: "space-between",              
+              justifyContent: "space-between",
             }}
           >
             <div style={{ backgroundColor: "#1f3b71", height: "100%" }}>
@@ -124,12 +132,25 @@ export default function HomeRouter() {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "flex-end",
+                  justifyContent: "space-between",
                   px: [1],
                   color: "yellow",
                 }}
               >
-                <h2>Exafluence</h2>
+                <div></div>
+                <NavLink to="/dashboard">
+                  <img
+                    style={{ width: "260px", height: "75px" }}
+                    src={ExfImgSrc}
+                    alt="Exf Icon"
+                  />
+                </NavLink>
+                {/* <NavLink
+                  style={{ textDecoration: "none", color: "#FFD700" }}
+                  to="/dashboard"
+                >
+                  <h2>Exafluence</h2>
+                </NavLink> */}
                 <IconButton onClick={toggleDrawer}>
                   <ChevronLeftIcon />
                 </IconButton>
@@ -139,7 +160,7 @@ export default function HomeRouter() {
                 <MainListItems />
               </List>
             </div>
-            <div style={{backgroundColor:'red'}}>
+            <div style={{ backgroundColor: "red" }}>
               <SecondListItems />
             </div>
           </div>

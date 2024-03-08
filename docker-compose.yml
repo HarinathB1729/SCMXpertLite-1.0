@@ -5,15 +5,17 @@ services:
 
 # scmxpertlite application service
   scmserver:
-    image: scmserver
+    image: harinath612/scmserver
     ports:
       - "8000:8000"
 
  # scmxpertlite application service
   scmxpertlite:
-    image: scmxpertlite-ui
+    image: harinath612/scmxpertlite-ui
     ports:
       - "3000:3000"
+    depends_on:
+      - scmserver
        #networks that will be used to connect your services. Networks allow containers to communicate with each other using their service names as hostnames
  
   # Zookeeper service for Kafka
@@ -40,14 +42,14 @@ services:
  
   # Server service
   socketserver:
-    image: socketserver:latest
+    image: harinath612/socketserver:latest
     ports:
       - "12121:12121"
     depends_on:
       - kafka
   # Producer service
   producer:
-    image: producer:latest
+    image: harinath612/producer:latest
     depends_on:
       - socketserver
       - kafka
@@ -59,7 +61,7 @@ services:
    
    # Consumer service
   consumer:
-    image: consumer:latest
+    image: harinath612/consumer:latest
     depends_on:
       - producer
     environment:
